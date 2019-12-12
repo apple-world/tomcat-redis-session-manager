@@ -1,0 +1,29 @@
+plugins {
+    id 'war'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    providedCompile group: 'javax.servlet', name: 'servlet-api', version: '2.3'
+}
+
+war {
+    archiveBaseName = 'hello'
+
+    doLast {
+        copy {
+            from "build/libs/${baseName}.war"
+            into "../jboss-5.1.0.GA/server/default/deploy/"
+            println("deployed ${baseName}.war")
+        }
+    }
+}
+
+compileJava {
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+    options.encoding = 'windows-31j'
+}
